@@ -1,23 +1,5 @@
 <?php
 namespace Cron;
-// U02SUP8HU ---- Jeroen Reinsma
-// U03LX7X2B ---- Dennis Borkent
-// U048G8WR8 ---- Christiaan Visser
-// U048GCZDS ---- Michel Heitbrink
-// U0495P46R ---- Martijn de Boer
-// U04969FG7 ---- Sape Hendrik Keizer
-// U0L977RA5 ---- G Meindersma
-// U25T8MKV4 ---- Michelle Stuy
-// U288NHZK2 ---- Marik Gnodde
-// U3LBWLBH8 ---- Ronald Groot Jebbink
-// U3MG01HKM ---- Tjisse Reitsma
-// U5QHME45A ---- Arjen Profijt
-// U6WQV3NGK ---- Ronald Boskma
-// U6X816PDF ---- Patrick Attema
-// U6XTN4QP7 ---- Remco Langhorst
-// U6YLQ3KM4 ---- Erwin Wierda
-// U6YS49GUF ---- Maaike Bonnema
-
 
 class CoffeeSend extends \Cron\Cron{
 
@@ -59,21 +41,20 @@ class CoffeeSend extends \Cron\Cron{
 		$orderlist = rtrim($orderlist, ",");
 
 		if ( count($responders) > 0 ){
-
+			
+			//Remove Erwin
 			if ( isset($responders["U6YLQ3KM4"]) ){
 				unset($responders["U6YLQ3KM4"]);
 			}
 
 			if ( count($responders) > 0 ){
-
+				
+				//Possible to give weight to people to make it unfair. By default everybody has the same change.
 				$chancelist = array();
 
 				foreach( $responders as $uid => $name ){
 
-					$max = ( $uid == "U048GCZDS" ) ? 1 : 3;
-					$max = ( $uid == "U3LBWLBH8" ) ? 2 : $max;
-
-					for( $i = 0; $i < $max; $i++ ){
+					for( $i = 0; $i < 1; $i++ ){
 						$chancelist[] = $uid;
 					}
 				}
@@ -86,7 +67,7 @@ class CoffeeSend extends \Cron\Cron{
 
 			}
 			else {
-				$this->postMessage("Erwin heeft als enige besteld. Wie wil het voor hem halen?:rocket:\n\n{$list}\n{$orderlist}");
+				$this->postMessage("{$responders["U6YLQ3KM4"]} heeft als enige besteld. Wie wil het voor hem halen?:rocket:\n\n{$list}\n{$orderlist}");
 			}
 		}
 
